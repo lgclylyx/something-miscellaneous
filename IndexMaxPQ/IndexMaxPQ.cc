@@ -14,8 +14,8 @@ public:
 		qp.resize(maxN);
 	}
 	/*
-	 * k: ÔªËØÔÚelesÊı×éÖĞµÄÎ»ÖÃ
-	 * t: ²åÈëÔªËØ
+	 * k: å…ƒç´ åœ¨elesæ•°ç»„ä¸­çš„ä½ç½®
+	 * t: æ’å…¥å…ƒç´ 
 	 * */
 	void insert(int k,const T& t){
 		if(contains(k))
@@ -74,7 +74,7 @@ public:
 	}
 private:
 	/*
-	 * k: pqÊı×éµÄÏÂ±ê
+	 * k: pqæ•°ç»„çš„ä¸‹æ ‡
 	 */
 	void swim(int k){
 		T temp = pq[k];
@@ -103,7 +103,13 @@ private:
 	}
 private:
 	vector<T> eles;
+	/*
+	*pqä¸­å­˜å‚¨çš„æ˜¯elesä¸­å…ƒç´ çš„ä¸‹æ ‡ï¼Œä¸”æŒ‰å †åºæ’åˆ—
+	*/
 	vector<int> pq;
+	/*
+	*qp[i]ä»£è¡¨eles[i]åœ¨pqä¸­çš„ä¸‹æ ‡
+	*/
 	vector<int> qp;
 	int pqsize;
 };
