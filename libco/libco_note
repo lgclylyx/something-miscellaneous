@@ -1,0 +1,19 @@
+libco中协程函数通过return返回的问题：
+当一个协程通过return返回时，是如何切换到另一个协程执行的了？
+libco在创建协程co_create并执行该协程co_resume时，第一次执行该协程
+使用coctx_make为该协程准备环境时，为其初始化的执行实体为CoRoutineFunc函数，
+而不是用户自定义的函数，这相当与增加了一层包裹，当自定义函数执行结束并return
+返回时，实际上返回到CoRoutineFunc中，在该函数中会调用co_yield切换到其它的协程
+进行执行。
+static int CoRoutineFunc( stCoRoutine_t *co,void * ){
+	if( co->pfn ){
+		co->pfn( co->arg );
+	}
+	co->cEnd = 1;
+
+	stCoRoutineEnv_t *env = co->env;
+
+	co_yield_env( env );
+
+	return 0;
+}
